@@ -18,7 +18,7 @@ export const StudentSideBar = () => {
             }}
         >
             {/* ProfilePicture */}
-            <StudentProfilePicture name={'Gordazo'} />
+            <StudentProfilePicture />
 
             {/* Lista de Rutas */}
             <List component={'nav'} sx={{
@@ -47,7 +47,7 @@ export const StudentSideBar = () => {
                                     sx={
                                         {
                                             fontSize: '1rem',
-                                            fontWeight: pathname === ruta ? 'bold' : 'normal',
+                                            fontWeight: pathname === ruta ? 'bold' : '550',
                                             color: pathname === ruta ? 'primary.main' : 'black'
                                         }
                                     }
