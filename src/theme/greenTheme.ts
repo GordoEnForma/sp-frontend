@@ -13,6 +13,9 @@ export const greenTheme = createTheme({
         error: {
             main: red[400]
         },
+        background:{
+            default:'#F6F6F8'
+        }
 
 
     },

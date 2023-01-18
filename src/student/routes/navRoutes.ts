@@ -4,7 +4,8 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import LocalLibrarySharpIcon from '@mui/icons-material/LocalLibrarySharp';
 
-type Ruta = {
+export type Ruta = {
+    title: string;
     name: string;
     ruta: string;
     icon: React.FC
@@ -13,22 +14,26 @@ type Ruta = {
 
 export const rutas: Ruta[] = [
     {
-        name: 'Principal',
+        title: 'Principal',
+        name: 'home',
         ruta: '/student/home',
         icon: HomeIcon
     },
     {
-        name: 'Examen',
+        title: 'Examen',
+        name: 'exam',
         ruta: '/student/examen',
         icon: AutoStoriesIcon
     },
     {
-        name: 'Repaso',
+        title: 'Repaso',
         ruta: '/student/repaso',
+        name: 'practice',
         icon: LocalLibrarySharpIcon
     },
     {
-        name: 'Recursos',
+        title: 'Recursos',
+        name: 'resources',
         ruta: '/student/recursos',
         icon: FolderCopyIcon
     },

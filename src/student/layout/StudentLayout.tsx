@@ -20,7 +20,7 @@ export const StudentLayout = ({ children }: Props) => {
                 sx={{
                     backgroundColor: grey[200],
                     flexGrow: 1,
-                    mt: 8,
+                    mt: 5,
                     mr: 5,
                 }}
             >

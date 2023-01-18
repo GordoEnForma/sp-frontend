@@ -12,9 +12,9 @@ export const StudentSideBar = () => {
             sx={{
                 // height: '90vh',
                 ml: '2rem',
-                mt: '4rem',
+                mt: '2.5rem',
                 backgroundColor: grey[300],
-                width: '12rem',
+                minWidth: '13rem',
             }}
         >
             {/* ProfilePicture */}
@@ -22,15 +22,15 @@ export const StudentSideBar = () => {
 
             {/* Lista de Rutas */}
             <List component={'nav'} sx={{
-                px: '0.5rem',
-                pb: '10rem',
+                px: '0.8rem',
+                pb: '11rem',
             }}>
                 {
-                    rutas.map(({ icon, name, ruta }) => (
+                    rutas.map(({ icon, title, name, ruta }) => (
                         <ListItemButton
                             component={RouterLink}
                             key={name}
-                            selected={pathname === ruta}
+                            selected={pathname.includes(ruta)}
                             sx={{
                                 mb: 3.5,
                                 borderRadius: 3
@@ -39,7 +39,7 @@ export const StudentSideBar = () => {
 
                         >
                             <ListItemIcon >
-                                <Box sx={{ color: pathname === ruta ? '#1EAD5C' : 'black' }} component={icon} />
+                                <Box sx={{ color: pathname.includes(ruta) ? '#1EAD5C' : 'black' }} component={icon} />
                             </ListItemIcon>
                             <ListItemText
                             >
@@ -47,12 +47,12 @@ export const StudentSideBar = () => {
                                     sx={
                                         {
                                             fontSize: '1rem',
-                                            fontWeight: pathname === ruta ? 'bold' : '550',
-                                            color: pathname === ruta ? 'primary.main' : 'black'
+                                            fontWeight: pathname.includes(ruta) ? 'bold' : '400',
+                                            color: pathname.includes(ruta) ? 'primary.main' : 'black'
                                         }
                                     }
                                 >
-                                    {name}
+                                    {title}
                                 </Typography>
                             </ListItemText>
 
