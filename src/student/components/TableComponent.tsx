@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
     Box,
+    Button,
     IconButton,
     Paper,
     Table,
@@ -9,11 +10,13 @@ import {
     TableContainer,
     TableHead,
     TablePagination,
-    TableRow
+    TableRow,
+    Typography
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import LastPage from '@mui/icons-material/LastPage';
 import { FirstPage, KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 
 
@@ -85,6 +88,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 
 type ExamLog = {
+    id: number;
     duration: number;
     amountOfRightAnswers: number;
     amountOfWrongAnswers: number;
@@ -92,35 +96,26 @@ type ExamLog = {
     solvedDate: Date;
 }
 
-// const headers: ExamLog = [
-
-
-//     'N° Correctas',
-//     'N° Correctas',
-//     'N° Correctas',
-//     'Realizado',
-// ]
-
 const rowS: ExamLog[] = [
-    { duration: 120, amountOfRightAnswers: 20, amountOfUnanswered: 10, amountOfWrongAnswers: 70, solvedDate: new Date(new Date("February 28, 2022 10:20:40"),) },
-    { duration: 120, amountOfRightAnswers: 50, amountOfUnanswered: 20, amountOfWrongAnswers: 30, solvedDate: new Date(new Date("August 30, 2021 03:15:30"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("December 1, 2022 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("January 1, 2020 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("July 3, 2021 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("February 10, 2022 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("July 4, 2020 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("August 1, 2020 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("October 21, 2021 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("September 14, 2022 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("June 30, 2022 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("March 9, 2021 13:05"),) },
-    { duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("April 14, 2022 13:05"),) },
+    { id: 0, duration: 120, amountOfRightAnswers: 20, amountOfUnanswered: 10, amountOfWrongAnswers: 70, solvedDate: new Date(new Date("February 28, 2022 10:20:40"),) },
+    { id: 1, duration: 120, amountOfRightAnswers: 50, amountOfUnanswered: 20, amountOfWrongAnswers: 30, solvedDate: new Date(new Date("August 30, 2021 03:15:30"),) },
+    { id: 2, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("December 1, 2022 13:05"),) },
+    { id: 3, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("January 1, 2020 13:05"),) },
+    { id: 4, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("July 3, 2021 13:05"),) },
+    { id: 5, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("February 10, 2022 13:05"),) },
+    { id: 6, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("July 4, 2020 13:05"),) },
+    { id: 7, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("August 1, 2020 13:05"),) },
+    { id: 8, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("October 21, 2021 13:05"),) },
+    { id: 9, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("September 14, 2022 13:05"),) },
+    { id: 10, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("June 30, 2022 13:05"),) },
+    { id: 11, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("March 9, 2021 13:05"),) },
+    { id: 12, duration: 120, amountOfRightAnswers: 10, amountOfUnanswered: 40, amountOfWrongAnswers: 50, solvedDate: new Date(new Date("April 14, 2022 13:05"),) },
 ].sort((a, b) => (a.solvedDate < b.solvedDate ? 1 : -1));
 
 
-export default function CustomPaginationActionsTable() {
+export const CustomPaginationActionsTable = () => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(4);
 
     const ofName = document.querySelector(".MuiTablePagination-displayedRows");
 
@@ -148,9 +143,7 @@ export default function CustomPaginationActionsTable() {
 
         const ofName = document.querySelector(".MuiTablePagination-displayedRows");
         amountName!.innerHTML = "Filas en la tabla ";
-        ofName!.innerHTML = ofName!.innerHTML.replace('of', 'de')
-
-            ;
+        ofName!.innerHTML = ofName!.innerHTML.replace('of', 'de');;
     }, [ofName?.innerHTML])
 
     return (
@@ -161,8 +154,8 @@ export default function CustomPaginationActionsTable() {
                 <TableHead>
                     <TableRow>
                         <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={5}
+                            rowsPerPageOptions={[4, 10, 25, { label: 'Todo', value: -1 }]}
+                            colSpan={6}
                             count={rowS.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
@@ -177,48 +170,73 @@ export default function CustomPaginationActionsTable() {
                             ActionsComponent={TablePaginationActions}
                         />
                     </TableRow>
-                    <TableRow>
+                    <TableRow sx={{
+                        'th': {
+                            fontSize: 16,
+                        }
+                    }}>
                         <TableCell component="th" scope="row">
                             {'Duración'}
                         </TableCell>
-                        <TableCell style={{ width: 160 }} align="right">
+                        <TableCell style={{ width: 160 }} align="center">
                             N° Correctas
                         </TableCell>
-                       
-                        <TableCell style={{ width: 160 }} align="right">
+
+                        <TableCell style={{ width: 160 }} align="center">
                             N° Incorrectas
                         </TableCell>
-                       
-                        <TableCell style={{ width: 160 }} align="right">
+
+                        <TableCell style={{ width: 160 }} align="center">
                             No realizadas
                         </TableCell>
-                       
-                        <TableCell style={{ width: 160 }} align="right">
-                            Fecha Realizado 
+
+                        <TableCell style={{ width: 160 }} align="center">
+                            Fecha Realizado
                         </TableCell>
-                       
+                        <TableCell style={{ width: 160 }} align="center">
+
+                        </TableCell>
+
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
                         ? rowS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rowS
-                    ).map((row) => (
-                        <TableRow key={row.duration}>
-                            <TableCell component="th" scope="row">
+                    ).map((row, index) => (
+                        <TableRow key={index}>
+                            <TableCell component="th" scope="row" >
                                 {row.duration}
                             </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell style={{ width: 160 }} align="center">
                                 {row.amountOfUnanswered}
                             </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell style={{ width: 160 }} align="center">
                                 {row.amountOfWrongAnswers}
                             </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell style={{ width: 160 }} align="center">
                                 {row.amountOfRightAnswers}
                             </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell style={{ width: 160 }} align="center">
                                 {row.solvedDate.toLocaleDateString()}
+                            </TableCell>
+                            {/* Button to path "/examen/:id" */}
+                            <TableCell style={{ width: 160 }} align="right">
+                                <Button variant="text" sx={{
+                                    'a': { textDecoration: 'none' }
+                                }}
+                                >
+                                    <Link to={`/student/examen/${row.id}`}>
+                                        <Typography textTransform={'capitalize'} color='primary.main'>
+                                            Ver Detalles
+                                        </Typography>
+                                    </Link>
+                                </Button>
+
+                                {/* <Button variant="text">
+                                    Ver Detalles
+                                </Button> */}
+
                             </TableCell>
                         </TableRow>
                     ))}

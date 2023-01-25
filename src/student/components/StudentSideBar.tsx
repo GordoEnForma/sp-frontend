@@ -11,10 +11,11 @@ export const StudentSideBar = () => {
         <Box
             sx={{
                 // height: '90vh',
-                ml: '2rem',
-                mt: '2.5rem',
+                // ml: '2rem',
+                // mt: '2.5rem',
                 backgroundColor: grey[300],
                 minWidth: '13rem',
+                minHeight: '100vh',
             }}
         >
             {/* ProfilePicture */}

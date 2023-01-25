@@ -4,14 +4,17 @@ import { StudentSideBar } from "../components/StudentSideBar"
 
 
 type Props = {
-    children: JSX.Element
+    children: JSX.Element | JSX.Element[]
 }
 
 
 export const StudentLayout = ({ children }: Props) => {
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box
+            sx={{ display: 'flex' }}
+
+        >
 
             <StudentSideBar />
 
@@ -20,8 +23,8 @@ export const StudentLayout = ({ children }: Props) => {
                 sx={{
                     backgroundColor: grey[200],
                     flexGrow: 1,
-                    mt: 5,
-                    mr: 5,
+                    // mt: 5,
+                    // mr: 5,
                 }}
             >
                 {children}
