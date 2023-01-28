@@ -1,11 +1,14 @@
 import { Typography } from "@mui/material"
+import { AdminLayout } from "../layout/AdminLayout"
 
 export const AdminThemesPage = () => {
     return (
         <>
-            <Typography>
-                Admin Themes Page            
-            </Typography>
+            <AdminLayout>
+                {
+                    <Typography>Admin Main Page</Typography>
+                }
+            </AdminLayout>
         </>
     )
 }
