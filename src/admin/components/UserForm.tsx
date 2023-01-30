@@ -1,3 +1,5 @@
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { grey } from "@mui/material/colors";
 import {
     Box,
     Button,
@@ -8,8 +10,8 @@ import {
     Select,
     TextField,
 } from "@mui/material";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { grey } from "@mui/material/colors";
+import { sleep } from "../../helpers/sleep";
+import { userApi } from "../api/usersApi";
 
 type NameType =
     | "nombres"
@@ -92,7 +94,7 @@ export const UserForm = () => {
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
         register,
         watch,
     } = useForm({
@@ -106,29 +108,51 @@ export const UserForm = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<DataSchema> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<DataSchema> = async ({
+        nombres,
+        apellidos,
+        correo,
+        contraseña,
+    }) => {
+        try {
+            const { data } = await userApi.post("registrar-estudiante", {
+                nombre: nombres,
+                apellido: apellidos,
+                email: correo,
+                contrasena: contraseña,
+            });
+            await sleep(2);
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <Grid
             item
             xs={12}
-            md={7.5}
+            md={7}
             sx={{
                 mt: 2,
                 padding: 1,
                 bgcolor: grey[300],
+                alignItems: "center",
             }}
         >
             <Box
+                id="Form-box"
                 component="form"
                 autoComplete="off"
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}
-                
             >
-                <Grid container direction={"row"} gap={2}>
+                <Grid
+                    id="form-box-grid-container"
+                    container
+                    direction={"row"}
+                    gap={3}
+                >
                     {textInputFields.map(
                         ({ labelTitle, name, type }: InputsSchema, index) => (
                             <Controller
@@ -139,7 +163,7 @@ export const UserForm = () => {
                                     <Grid item xs={12} lg={5.5}>
                                         <TextField
                                             sx={{
-                                                fontWeight: 500
+                                                fontWeight: 500,
                                             }}
                                             fullWidth
                                             variant={"outlined"}
@@ -199,6 +223,7 @@ export const UserForm = () => {
                             type="submit"
                             sx={{ width: "30%" }}
                             variant="contained"
+                            disabled={isSubmitting}
                         >
                             Crear Usuario
                         </Button>

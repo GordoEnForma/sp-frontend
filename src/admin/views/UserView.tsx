@@ -1,4 +1,4 @@
-import { UserForm } from "../components";
+import { UserForm, UserTable } from "../components";
 
 export const UserView = () => {
     return (
@@ -7,6 +7,7 @@ export const UserView = () => {
             <UserForm />
 
             {/* UserTable -> Check users and open UserDetailsModal */}
+            {/* <UserTable /> */}
         </>
     );
 };

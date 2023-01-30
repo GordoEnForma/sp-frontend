@@ -11,6 +11,7 @@ export const AdminUsersPage = () => {
           sx={{
             px: 5,
           }}
+          gap={2}
         >
           {/* PageTitle */}
           <Grid
@@ -18,7 +19,7 @@ export const AdminUsersPage = () => {
             xs={12}
             sx={{
               // bgcolor: 'secondary.main',
-              my: 2.5,
+              my: 2,
               // pl: 3
             }}
           >
