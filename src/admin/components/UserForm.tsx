@@ -11,28 +11,9 @@ import {
     TextField,
 } from "@mui/material";
 import { sleep } from "../../helpers/sleep";
-import { userApi } from "../api/usersApi";
+import { useMutateUsers, useProducts } from "../hooks";
+import { InputsSchema } from "../types/user.types";
 
-type NameType =
-    | "nombres"
-    | "apellidos"
-    | "correo"
-    | "contraseña"
-    | "state"
-    | "product";
-
-type ValueSchema = {
-    value: string;
-    title: string;
-};
-
-type InputsSchema = {
-    labelId: string;
-    labelTitle: string;
-    type?: string;
-    name: NameType;
-    values?: ValueSchema[];
-};
 const textInputFields: InputsSchema[] = [
     {
         labelId: "text-name-id",
@@ -53,6 +34,12 @@ const textInputFields: InputsSchema[] = [
         name: "correo",
     },
     {
+        labelId: "text-phone-id",
+        labelTitle: "Telefono",
+        type: "text",
+        name: "telefono",
+    },
+    {
         labelId: "text-password-id",
         labelTitle: "Contraseña",
         type: "text",
@@ -60,27 +47,17 @@ const textInputFields: InputsSchema[] = [
     },
 ];
 
-const selectInputFields: InputsSchema[] = [
-    {
-        labelId: "user-products",
-        labelTitle: "Productos",
-        name: "product",
-        values: [
-            { value: "oficial", title: "Oficial" },
-            { value: "suboficial", title: "Suboficial" },
-        ],
-    },
-    {
-        labelId: "user-state",
-        labelTitle: "Estado",
-        name: "state",
-        values: [
-            { value: "inactivo", title: "Inactivo" },
-            { value: "pendiente", title: "Pendiente" },
-            { value: "activo", title: "Activo" },
-        ],
-    },
-];
+const stateInputValues: InputsSchema = {
+    id: "user-state-id",
+    labelId: "user-state",
+    labelTitle: "Estado",
+    name: "state",
+    values: [
+        { value: "inactivo", title: "Inactivo" },
+        { value: "pendiente", title: "Pendiente" },
+        { value: "activo", title: "Activo" },
+    ],
+};
 
 interface DataSchema {
     nombres: string;
@@ -88,14 +65,14 @@ interface DataSchema {
     correo: string;
     contraseña: string;
     state: string;
-    product: string;
+    telefono: string;
+    productID: string;
 }
 export const UserForm = () => {
     const {
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-        register,
         watch,
     } = useForm({
         defaultValues: {
@@ -104,25 +81,36 @@ export const UserForm = () => {
             correo: "",
             contraseña: "",
             state: "activo",
-            product: "oficial",
+            productID: "63d552325193b6d6ba030fa4",
+            telefono: "",
         },
     });
+
+    const { productsQuery } = useProducts();
+    const mutation = useMutateUsers();
+
+    const products = productsQuery.data || [];
 
     const onSubmit: SubmitHandler<DataSchema> = async ({
         nombres,
         apellidos,
         correo,
         contraseña,
+        telefono,
+        productID,
+        state,
     }) => {
         try {
-            const { data } = await userApi.post("registrar-estudiante", {
-                nombre: nombres,
-                apellido: apellidos,
-                email: correo,
-                contrasena: contraseña,
+            mutation.mutate({
+                nombres,
+                apellidos,
+                correo,
+                contraseña,
+                productID,
+                telefono,
+                state,
             });
             await sleep(2);
-            console.log(data);
         } catch (error) {
             console.log(error);
         }
@@ -134,7 +122,7 @@ export const UserForm = () => {
             xs={12}
             md={7}
             sx={{
-                mt: 2,
+                // mt: 2,
                 padding: 1,
                 bgcolor: grey[300],
                 alignItems: "center",
@@ -151,73 +139,122 @@ export const UserForm = () => {
                     id="form-box-grid-container"
                     container
                     direction={"row"}
-                    gap={3}
+                    gridAutoRows={2}
+                    gap={2}
                 >
-                    {textInputFields.map(
-                        ({ labelTitle, name, type }: InputsSchema, index) => (
-                            <Controller
-                                key={index}
-                                name={name}
-                                control={control}
-                                render={({ field }) => (
-                                    <Grid item xs={12} lg={5.5}>
-                                        <TextField
-                                            sx={{
-                                                fontWeight: 500,
-                                            }}
-                                            fullWidth
-                                            variant={"outlined"}
-                                            size="medium"
-                                            autoComplete="off"
-                                            type={type}
-                                            label={labelTitle}
-                                            {...field}
-                                        />
-                                    </Grid>
-                                )}
-                            />
-                        )
-                    )}
-
-                    {selectInputFields.map(
-                        ({ labelTitle, values, name, labelId }, index) => (
-                            <Controller
-                                key={index}
-                                name={name}
-                                control={control}
-                                render={({ field }) => (
-                                    <Grid item xs={12} lg={5.5} sx={{}}>
-                                        <FormControl
-                                            sx={{
-                                                width: "100%",
-                                            }}
-                                        >
-                                            <InputLabel id="products">
-                                                {labelTitle}
-                                            </InputLabel>
-                                            <Select
+                    <Grid
+                        item
+                        xs={6}
+                        // direction={"row"}
+                        gap={1}
+                    >
+                        {textInputFields.map(
+                            (
+                                { labelTitle, name, type }: InputsSchema,
+                                index
+                            ) => (
+                                <Controller
+                                    key={index}
+                                    name={name}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                fullWidth
+                                                variant={"outlined"}
+                                                size="medium"
+                                                autoComplete="off"
+                                                type={type}
+                                                label={labelTitle}
                                                 {...field}
-                                                labelId={labelId}
-                                                // id="products"
-                                                value={watch(name)}
-                                            >
-                                                {values?.map(
-                                                    ({ title, value }) => (
-                                                        <MenuItem
-                                                            key={value}
-                                                            value={value}
-                                                        >
-                                                            {title}
-                                                        </MenuItem>
-                                                    )
-                                                )}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                )}
-                            />
-                        )
-                    )}
+                                            />
+                                        </Grid>
+                                    )}
+                                />
+                            )
+                        )}
+                    </Grid>
+                    <Grid
+                        id="grid-container-select"
+                        gap={1}
+                        item
+                        xs={5.5}
+                        sx={{
+                            height: "110px",
+                        }}
+                    >
+                        <Controller
+                            key={products._id}
+                            name={"productID"}
+                            control={control}
+                            render={({ field }) => (
+                                <Grid item xs={12} sx={{}}>
+                                    <FormControl
+                                        sx={{
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <InputLabel id="products">
+                                            Productos
+                                        </InputLabel>
+                                        <Select
+                                            {...field}
+                                            labelId={"products"}
+                                            // id="products"
+                                            value={watch("productID")}
+                                        >
+                                            {products.data?.map(
+                                                ({ _id, nombre }) => (
+                                                    <MenuItem
+                                                        key={_id}
+                                                        value={_id}
+                                                    >
+                                                        {nombre}
+                                                    </MenuItem>
+                                                )
+                                            )}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            )}
+                        />
+                        <Controller
+                            key={stateInputValues.id}
+                            name={"state"}
+                            control={control}
+                            render={({ field }) => (
+                                <Grid item xs={12} sx={{}}>
+                                    <FormControl
+                                        sx={{
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <InputLabel id="products">
+                                            {stateInputValues.labelTitle}
+                                        </InputLabel>
+                                        <Select
+                                            {...field}
+                                            labelId={stateInputValues.labelId}
+                                            // id="products"
+                                            value={watch("state")}
+                                        >
+                                            {stateInputValues.values?.map(
+                                                ({ title, value }) => (
+                                                    <MenuItem
+                                                        key={value}
+                                                        value={value}
+                                                    >
+                                                        {title}
+                                                    </MenuItem>
+                                                )
+                                            )}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            )}
+                        />
+                    </Grid>
+
                     <Grid item xs={12} justifyContent="center" display={"flex"}>
                         <Button
                             type="submit"

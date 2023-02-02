@@ -32,6 +32,12 @@ export const rutas: Ruta[] = [
         icon: LocalLibrarySharpIcon
     },
     {
+        title: 'Productos',
+        ruta: '/admin/productos',
+        name: 'productos',
+        icon: LocalLibrarySharpIcon
+    },
+    {
         title: 'Recursos',
         name: 'recursos',
         ruta: '/admin/recursos',
