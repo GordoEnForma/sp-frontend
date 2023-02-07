@@ -1,4 +1,5 @@
 export * from './AdminHomePage'
 export * from './AdminUsersPage'
 export * from './AdminThemesPage'
+export * from './AdminProductsPage'
 export * from './AdminResourcesPage'

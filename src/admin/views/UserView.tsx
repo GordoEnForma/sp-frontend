@@ -10,9 +10,6 @@ export const UserView = () => {
     if (productsQuery.isLoading) {
         return <h1>Cargando</h1>;
     }
-    // if (usersQuery.isFetching) {
-    //     return <h1>Cargando</h1>;
-    // }
 
     return (
         <>

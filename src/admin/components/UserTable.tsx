@@ -104,6 +104,11 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     );
 }
 
+type ProductSchema = {
+    _id: string;
+    nombre: string;
+    temas?: [];
+};
 type DataSchema = {
     _id: number;
     nombre: string;
@@ -111,16 +116,10 @@ type DataSchema = {
     telefono: string;
     email: string;
     contrasena: string;
-    producto: string;
+    producto: ProductSchema | string;
     estado: string;
-    fechaAñadido?: Date;
-    fechaActualizacion?: Date;
-};
-
-type ProductSchema = {
-    _id: string;
-    nombre: string;
-    temas?: [];
+    createdAt: string;
+    updatedAt: string;
 };
 
 type Products = {
@@ -257,69 +256,116 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                               )
                             : users.data
                         )
-                            .map(({ nombre, estado, producto }, index) => (
-                                <TableRow
-                                    key={index}
-                                    sx={{
-                                        td: { fontSize: 18 },
-                                    }}
-                                >
-                                    <TableCell
-                                        component="td"
-                                        scope="row"
-                                        align="center"
+                            .map(
+                                (
+                                    {
+                                        nombre,
+                                        estado,
+                                        producto,
+                                        createdAt,
+                                        updatedAt,
+                                    },
+                                    index
+                                ) => (
+                                    <TableRow
+                                        key={index}
+                                        sx={{
+                                            td: { fontSize: 18 },
+                                        }}
                                     >
-                                        {nombre}
-                                    </TableCell>
-                                    <TableCell
-                                        style={{ width: 160 }}
-                                        align="center"
-                                    >
-                                        {estado === "activo"
-                                            ? "Activo"
-                                            : "Pendiente"}
-                                    </TableCell>
-                                    <TableCell
-                                        style={{ width: 160 }}
-                                        align="center"
-                                    >
-                                        {(() => {
-                                            const newValue =
-                                                products.data?.find(
-                                                    ({ _id }) => {
-                                                        if (producto === _id) {
-                                                            return true;
-                                                        }
-                                                    }
-                                                )?.nombre;
-                                            return newValue;
-                                        })()}
-                                    </TableCell>
-                                    <TableCell
-                                        style={{ width: 160 }}
-                                        align="center"
-                                    >
-                                        {new Date().getUTCDate()}
-                                    </TableCell>
-                                    <TableCell
-                                        style={{ width: 160 }}
-                                        align="center"
-                                    >
-                                        {new Date().getUTCFullYear()}
-                                        {/* {data.solvedDate.toLocaleDateString()} */}
-                                    </TableCell>
-                                    {/* Button to path "/examen/:id" */}
-                                    <TableCell
-                                        style={{ width: 160 }}
-                                        align="right"
-                                    >
-                                        <Button
-                                            variant="text"
-                                            sx={{
-                                                a: { textDecoration: "none" },
-                                            }}
+                                        <TableCell
+                                            component="td"
+                                            scope="row"
+                                            align="center"
                                         >
-                                            {/* <Link to={`/student/examen/${row.id}`}>
+                                            {nombre}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{ width: 160 }}
+                                            align="center"
+                                        >
+                                            {estado === "activo"
+                                                ? "Activo"
+                                                : "Pendiente"}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{ width: 160 }}
+                                            align="center"
+                                        >
+                                            {/* {(() => {
+                                                const newValue =
+                                                    products.data?.find(
+                                                        ({ _id }) => {
+                                                            if (
+                                                                producto === _id
+                                                            ) {
+                                                                return true;
+                                                            }
+                                                        }
+                                                    )?.nombre;
+                                                return newValue;
+                                            })()} */}
+                                            {producto
+                                                ? producto.nombre
+                                                : (() => {
+                                                    //   console.log(nombre);
+                                                    //   console.log(producto);
+                                                    //   console.log(
+                                                    //       products.data
+                                                    //   );
+                                                      const newValue =
+                                                          products.data?.find(
+                                                              ({ _id }) => {
+                                                                  if (
+                                                                      producto ===
+                                                                      _id
+                                                                  ) {
+                                                                      return true;
+                                                                  }
+                                                              }
+                                                          )?.nombre;
+                                                    //   console.log(newValue);
+                                                      return newValue;
+                                                  })()}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{ width: 160 }}
+                                            align="center"
+                                        >
+                                            {/* {console.log(typeof createdAt)} */}
+                                            {(() => {
+                                                return new Date(
+                                                    createdAt
+                                                ).toLocaleDateString();
+                                            })()}
+                                        </TableCell>
+                                        <TableCell
+                                            style={{ width: 160 }}
+                                            align="center"
+                                        >
+                                            {/* {new Date().getUTCFullYear()} */}
+                                            {(() => {
+                                                return new Date(
+                                                    updatedAt
+                                                ).toLocaleDateString();
+                                            })()}
+                                            {/* {data.solvedDate.toLocaleDateString()} */}
+                                        </TableCell>
+
+                                        {/* Button to path "/examen/:id" */}
+                                        <TableCell
+                                            style={{ width: 160 }}
+                                            align="right"
+                                        >
+                                            <Button
+                                                variant="text"
+                                                sx={{
+                                                    a: {
+                                                        textDecoration: "none",
+                                                    },
+                                                }}
+                                            >
+                                                {/* <Link to={`/student/examen/${row.id}`}>
                                             <Typography
                                                 textTransform={"capitalize"}
                                                 color="primary.main"
@@ -327,14 +373,15 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                                 Ver Detalles
                                             </Typography>
                                         </Link> */}
-                                        </Button>
+                                            </Button>
 
-                                        {/* <Button variant="text">
+                                            {/* <Button variant="text">
                                     Ver Detalles
                                 </Button> */}
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            )
                             .reverse()}
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 53 * emptyRows }}>

@@ -53,7 +53,6 @@ const stateInputValues: InputsSchema = {
     labelTitle: "Estado",
     name: "state",
     values: [
-        { value: "inactivo", title: "Inactivo" },
         { value: "pendiente", title: "Pendiente" },
         { value: "activo", title: "Activo" },
     ],
@@ -86,10 +85,13 @@ export const UserForm = () => {
         },
     });
 
-    const { productsQuery } = useProducts();
+    const {
+        productsQuery: { data },
+    } = useProducts();
     const mutation = useMutateUsers();
+    // console.log(data);
 
-    const products = productsQuery.data || [];
+    const products = data?.data || [];
 
     const onSubmit: SubmitHandler<DataSchema> = async ({
         nombres,
@@ -203,7 +205,7 @@ export const UserForm = () => {
                                             // id="products"
                                             value={watch("productID")}
                                         >
-                                            {products.data?.map(
+                                            {products.map(
                                                 ({ _id, nombre }) => (
                                                     <MenuItem
                                                         key={_id}

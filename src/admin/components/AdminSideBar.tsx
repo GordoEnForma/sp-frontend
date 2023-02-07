@@ -22,7 +22,6 @@ export const AdminSideBar = () => {
                 backgroundColor: grey[300],
                 minWidth: "13rem",
                 minHeight: "100vh",
-                // position: "-webkit-sticky",
                 position: "sticky",
                 top: 0,
             }}
