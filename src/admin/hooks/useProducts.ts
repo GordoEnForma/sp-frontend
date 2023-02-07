@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { productsApi } from "../api/productsApi";
-import { Product, ProductsResponse } from "../types/product.types";
+// import { Product, ProductsResponse } from "../types/product.types";
 
 const getProducts = async () => {
     const { data } = await productsApi.get("");
