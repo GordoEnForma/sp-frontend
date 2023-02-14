@@ -71,6 +71,7 @@ export const UserForm = () => {
     const {
         control,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
         watch,
     } = useForm({
@@ -89,7 +90,7 @@ export const UserForm = () => {
         productsQuery: { data },
     } = useProducts();
     const mutation = useMutateUsers();
-    // console.log(data);
+
 
     const products = data?.data || [];
 
@@ -112,7 +113,8 @@ export const UserForm = () => {
                 telefono,
                 state,
             });
-            await sleep(2);
+            await sleep(1);
+            reset();
         } catch (error) {
             console.log(error);
         }
@@ -205,16 +207,11 @@ export const UserForm = () => {
                                             // id="products"
                                             value={watch("productID")}
                                         >
-                                            {products.map(
-                                                ({ _id, nombre }) => (
-                                                    <MenuItem
-                                                        key={_id}
-                                                        value={_id}
-                                                    >
-                                                        {nombre}
-                                                    </MenuItem>
-                                                )
-                                            )}
+                                            {products.map(({ _id, nombre }) => (
+                                                <MenuItem key={_id} value={_id}>
+                                                    {nombre}
+                                                </MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
                                 </Grid>

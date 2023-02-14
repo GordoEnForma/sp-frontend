@@ -16,7 +16,7 @@ const userApi = axios.create({
 });
 
 export const getUsers = async () => {
-    const { data } = await userApi.get("/estudiante");
+    const { data } = await userApi.get("estudiante");
     console.log(data);
     return data;
 };
@@ -30,7 +30,7 @@ export const postUsers = async ({
     productID,
     telefono,
 }: DataSchema) => {
-    const { data } = await userApi.post("registrar-estudiante", {
+    const { data } = await userApi.post("estudiante", {
         nombre: nombres,
         apellido: apellidos,
         email: correo,

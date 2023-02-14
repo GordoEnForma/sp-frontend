@@ -113,7 +113,7 @@ type DataSchema = {
     _id: number;
     nombre: string;
     apellido: string;
-    telefono: string;
+    telefono: number;
     email: string;
     contrasena: string;
     producto: ProductSchema | string;
@@ -216,7 +216,9 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                             sx={{
                                 th: {
                                     fontSize: 18,
+                                    backgroundColor: "#a0a0a0",
                                 },
+
                                 // position:'fixed'
                             }}
                         >
@@ -305,14 +307,14 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                                     )?.nombre;
                                                 return newValue;
                                             })()} */}
-                                            {producto
+                                            {producto.nombre
                                                 ? producto.nombre
                                                 : (() => {
-                                                    //   console.log(nombre);
-                                                    //   console.log(producto);
-                                                    //   console.log(
-                                                    //       products.data
-                                                    //   );
+                                                      //   console.log(nombre);
+                                                      //   console.log(producto);
+                                                      //   console.log(
+                                                      //       products.data
+                                                      //   );
                                                       const newValue =
                                                           products.data?.find(
                                                               ({ _id }) => {
@@ -324,7 +326,7 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                                                   }
                                                               }
                                                           )?.nombre;
-                                                    //   console.log(newValue);
+                                                      //   console.log(newValue);
                                                       return newValue;
                                                   })()}
                                         </TableCell>
