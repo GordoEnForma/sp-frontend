@@ -1,11 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { userApi } from "../api/usersApi";
-
-const getUsers = async () => {
-    const { data } = await userApi.get("/estudiante");
-    console.log(data);
-    return data;
-};
+import { getUsers } from "../api/usersApi";
 
 export const useUsers = () => {
     const usersQuery = useQuery(["users"], getUsers, {

@@ -1,22 +1,34 @@
 import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useProducts } from "../hooks";
+import { useCategories } from "../hooks/useCategories";
 
 export const EditProductView = () => {
     const { productId } = useParams();
 
+    const { categoriesQuery } = useCategories();
     const { productQuery } = useProducts(productId);
 
-    if (productQuery?.isLoading) {
+    if (categoriesQuery.isLoading) {
         return (
             <Grid item xs={12}>
-                <Typography>Cargando...</Typography>
+                <Typography variant="h5">Cargando Temas...</Typography>
             </Grid>
         );
     }
-    const productData = productQuery?.data.data;
+    if (productQuery?.isLoading) {
+        return (
+            <Grid item xs={12}>
+                <Typography variant="h5">
+                    Cargando Información del Producto...
+                </Typography>
+            </Grid>
+        );
+    }
 
-    // console.log(productId);
+    const productData = productQuery?.data.data;
+    const categories = categoriesQuery.data.data;
+    // console.log(categories);
     return (
         <>
             <Grid item xs={12}>

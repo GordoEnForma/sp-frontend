@@ -7,8 +7,8 @@ export const ProductList = () => {
 
     if (productsQuery.isLoading) {
         return (
-            <Grid item xs={12}>
-                <Typography fontSize={30}>Cargando...</Typography>
+            <Grid item key={"product-loading-"} xs={12}>
+                <Typography fontSize={30}>Cargando Productos...</Typography>
             </Grid>
         );
     }

@@ -5,10 +5,10 @@ export const UserView = () => {
     const { usersQuery } = useUsers();
     const { productsQuery } = useProducts();
     if (usersQuery.isLoading) {
-        return <h1>Cargando</h1>;
+        return <h1>Cargando usuarios...</h1>;
     }
     if (productsQuery.isLoading) {
-        return <h1>Cargando</h1>;
+        return <h1>Cargando productos... </h1>;
     }
 
     return (
