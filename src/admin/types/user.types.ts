@@ -1,10 +1,10 @@
 export type NameType =
-    | "nombres"
-    | "apellidos"
-    | "correo"
-    | "contraseña"
+    | "nombre"
+    | "apellido"
+    | "email"
+    | "contrasena"
     | "telefono"
-    | "state"
+    | "estado"
     | "productID";
 
 export type ValueSchema = {
@@ -20,3 +20,18 @@ export type InputsSchema = {
     name: NameType;
     values?: ValueSchema[];
 };
+
+export interface FormDataSchema {
+    studentId?: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    contrasena: string;
+    estado?: string;
+    producto?: {
+        _id: string;
+        nombre: string;
+    };
+    productId?: string;
+    telefono: number;
+}

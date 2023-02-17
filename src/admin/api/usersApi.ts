@@ -1,14 +1,15 @@
 import axios from "axios";
 
 interface DataSchema {
-    nombres: string;
-    apellidos: string;
-    correo: string;
-    contraseña: string;
-    state?: string;
+    studentId?: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    contrasena: string;
+    estado?: string;
     product?: string;
-    productID: string;
-    telefono: string;
+    productId: string;
+    telefono: number;
 }
 
 const userApi = axios.create({
@@ -22,21 +23,43 @@ export const getUsers = async () => {
 };
 
 export const postUsers = async ({
-    nombres,
-    apellidos,
-    correo,
-    contraseña,
-    state,
-    productID,
+    nombre,
+    apellido,
+    email,
+    contrasena,
+    estado,
+    productId,
     telefono,
 }: DataSchema) => {
+    console.log(productId);
     const { data } = await userApi.post("estudiante", {
-        nombre: nombres,
-        apellido: apellidos,
-        email: correo,
-        contrasena: contraseña,
-        estado: state,
-        producto: productID,
+        nombre,
+        apellido,
+        email,
+        contrasena,
+        estado,
+        producto: productId,
+        telefono,
+    });
+    return data;
+};
+export const updateUser = async ({
+    studentId,
+    nombre,
+    apellido,
+    email,
+    contrasena,
+    estado,
+    productId,
+    telefono,
+}: DataSchema) => {
+    const { data } = await userApi.put(`estudiante/${studentId}`, {
+        nombre,
+        apellido,
+        email,
+        contrasena,
+        estado,
+        producto: productId,
         telefono,
     });
     return data;

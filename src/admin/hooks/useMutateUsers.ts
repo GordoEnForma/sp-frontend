@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postUsers } from "../api/usersApi";
+import { postUsers, updateUser } from "../api/usersApi";
 
 export const useMutateUsers = () => {
     const queryClient = useQueryClient();
 
-    return useMutation(postUsers, {
-        onSuccess(data, variables) {
+    const registerNewUser = useMutation(postUsers, {
+        onSuccess(data) {
             const oldData = queryClient.getQueryData(["users"]);
-            console.log(data.data);
+            // console.log(data.data);
             let newData = structuredClone(oldData);
             // let newData = JSON.parse(JSON.stringify(oldData));
 
@@ -17,4 +17,21 @@ export const useMutateUsers = () => {
             // console.log("Todo salio bien!");
         },
     });
+
+    const updateCurrentUser = useMutation(updateUser, {
+        onSuccess(data) {
+            const oldData = queryClient.getQueryData(["users"]);
+            console.log(data.data);
+            // let newData = structuredClone(oldData);
+
+            // newData.data.(data.data);
+
+            // queryClient.setQueryData(["users"], newData);
+            // console.log("Todo salio bien!");
+        },
+    });
+    return {
+        registerNewUser,
+        updateCurrentUser,
+    };
 };

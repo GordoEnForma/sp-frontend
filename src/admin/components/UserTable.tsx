@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     Box,
@@ -23,6 +23,8 @@ import {
     KeyboardArrowRight,
 } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
+import { UserViewContext } from "../context/UserViewContext";
+import { FormDataSchema } from "../types/user.types";
 
 interface TablePaginationActionsProps {
     count: number;
@@ -116,7 +118,7 @@ type DataSchema = {
     telefono: number;
     email: string;
     contrasena: string;
-    producto: ProductSchema | string;
+    producto: ProductSchema;
     estado: string;
     createdAt: string;
     updatedAt: string;
@@ -132,12 +134,15 @@ type Users = {
 type Props = {
     users: Users;
     products: Products;
+    // setInitialValues: (value: {}) => void;
 };
 
 export const UserTable: FC<Props> = ({ users, products }) => {
+    const { setIsUpdating, useFormAction } = useContext(UserViewContext);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(15);
+    const [rowsPerPage, setRowsPerPage] = useState(50);
 
+    // console.log(users.data);
     // const sortedUsers = users.sort((a, b) =>
     //     a.fechaAñadido < b.fechaAñadido ? 1 : -1
     // );
@@ -161,6 +166,21 @@ export const UserTable: FC<Props> = ({ users, products }) => {
     ) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+    };
+
+    const handleSetUserData = ({ producto, ...args }: FormDataSchema) => {
+        console.log(producto);
+        if (!producto?._id) {
+            useFormAction({
+                type: "updateUser",
+                payload: { ...args, productId: producto! },
+            });
+        }
+        useFormAction({
+            type: "updateUser",
+            payload: { ...args, productId: producto?._id },
+        });
+        setIsUpdating(true);
     };
 
     // useEffect(() => {
@@ -307,26 +327,22 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                                     )?.nombre;
                                                 return newValue;
                                             })()} */}
-                                            {producto.nombre
+                                            {producto &&
+                                            producto.nombre !== undefined
                                                 ? producto.nombre
                                                 : (() => {
-                                                      //   console.log(nombre);
-                                                      //   console.log(producto);
-                                                      //   console.log(
-                                                      //       products.data
-                                                      //   );
+                                                      console.log(producto);
                                                       const newValue =
                                                           products.data?.find(
                                                               ({ _id }) => {
                                                                   if (
-                                                                      producto ===
+                                                                      (producto as unknown) ===
                                                                       _id
                                                                   ) {
                                                                       return true;
                                                                   }
                                                               }
                                                           )?.nombre;
-                                                      //   console.log(newValue);
                                                       return newValue;
                                                   })()}
                                         </TableCell>
@@ -334,7 +350,6 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                             style={{ width: 160 }}
                                             align="center"
                                         >
-                                            {/* {console.log(typeof createdAt)} */}
                                             {(() => {
                                                 return new Date(
                                                     createdAt
@@ -345,36 +360,39 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                             style={{ width: 160 }}
                                             align="center"
                                         >
-                                            {/* {new Date().getUTCFullYear()} */}
                                             {(() => {
                                                 return new Date(
                                                     updatedAt
                                                 ).toLocaleDateString();
                                             })()}
-                                            {/* {data.solvedDate.toLocaleDateString()} */}
                                         </TableCell>
 
                                         {/* Button to path "/examen/:id" */}
                                         <TableCell
                                             style={{ width: 160 }}
-                                            align="right"
+                                            align="center"
                                         >
                                             <Button
-                                                variant="text"
+                                                variant="contained"
                                                 sx={{
-                                                    a: {
-                                                        textDecoration: "none",
+                                                    ":hover": {
+                                                        backgroundColor:
+                                                            "#2CF264",
+                                                        // color gozu #0DD345
                                                     },
                                                 }}
+                                                onClick={() =>
+                                                    handleSetUserData(
+                                                        users.data[index]
+                                                    )
+                                                }
                                             >
-                                                {/* <Link to={`/student/examen/${row.id}`}>
-                                            <Typography
-                                                textTransform={"capitalize"}
-                                                color="primary.main"
-                                            >
-                                                Ver Detalles
-                                            </Typography>
-                                        </Link> */}
+                                                <Typography
+                                                    textTransform={"capitalize"}
+                                                    color="black"
+                                                >
+                                                    Editar
+                                                </Typography>
                                             </Button>
 
                                             {/* <Button variant="text">

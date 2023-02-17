@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { UserForm, UserTable } from "../components";
+import { UserViewProvider } from "../context/UserProvider";
 import { useProducts, useUsers } from "../hooks";
 
 export const UserView = () => {
+
     const { usersQuery } = useUsers();
     const { productsQuery } = useProducts();
     if (usersQuery.isLoading) {
@@ -12,14 +15,19 @@ export const UserView = () => {
     }
 
     return (
-        <>
+        <UserViewProvider>
             {/*  UserForm -> Add Users */}
             <UserForm />
 
             {/* UserTable -> Check users and open UserDetailsModal */}
-            <UserTable users={usersQuery.data} products={productsQuery.data} />
+            <UserTable
+                users={usersQuery.data}
+                products={productsQuery.data}
+                // setInitialValues={setInitialValues}
+                // isUpdating={isUpdating}
+            />
 
             {/* <UserFormModal  /> */}
-        </>
+        </UserViewProvider>
     );
 };
