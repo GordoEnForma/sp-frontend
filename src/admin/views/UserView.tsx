@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { UserForm, UserTable } from "../components";
 import { UserViewProvider } from "../context/UserProvider";
+import { UserForm, UserTable } from "../components";
 import { useProducts, useUsers } from "../hooks";
 
 export const UserView = () => {

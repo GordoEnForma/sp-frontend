@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { userStore } from "../../store/userStore";
 import {
     AdminHomePage,
     AdminProductsPage,
@@ -14,6 +15,13 @@ import {
 } from "../views";
 
 export const AdminRoutes = () => {
+    const user = userStore((state) => state.user);
+    if (!user) {
+        return <Navigate to={"/auth/login"} />;
+    }
+    if (user.data.role !== "admin") {
+        return <Navigate to={"/auth/login"} />;
+    }
     return (
         <Routes>
             <Route path="/home" element={<AdminHomePage />} />

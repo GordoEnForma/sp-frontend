@@ -1,10 +1,10 @@
+import { useContext, useEffect, useMemo } from "react";
 import {
     useForm,
     Controller,
     SubmitHandler,
     useFormState,
 } from "react-hook-form";
-import { grey } from "@mui/material/colors";
 import {
     Box,
     Button,
@@ -15,11 +15,11 @@ import {
     Select,
     TextField,
 } from "@mui/material";
-import { sleep } from "../../helpers/sleep";
-import { useMutateUsers, useProducts } from "../hooks";
-import { InputsSchema } from "../types/user.types";
-import { useContext, useEffect, useMemo } from "react";
+import { grey } from "@mui/material/colors";
 import { UserViewContext } from "../context/UserViewContext";
+import { useMutateUsers, useProducts } from "../hooks";
+import { sleep } from "../../helpers/sleep";
+import { InputsSchema } from "../types/user.types";
 
 const textInputFields: InputsSchema[] = [
     {
