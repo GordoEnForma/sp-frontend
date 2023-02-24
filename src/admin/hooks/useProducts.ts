@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProductById, getProducts } from "../api/productsApi";
+import { Productos, Producto } from "../interfaces/product";
 
 export const useProducts = (productId?: string) => {
-    const productsQuery = useQuery(["products"], getProducts, {
+    const productsQuery = useQuery<Productos>(["products"], getProducts, {
         staleTime: 100 * 60 * 60,
     });
 
@@ -11,7 +12,7 @@ export const useProducts = (productId?: string) => {
             productsQuery,
         };
     }
-    const productQuery = useQuery(
+    const productQuery = useQuery<Producto>(
         ["products", productId],
         () => getProductById(productId),
         {

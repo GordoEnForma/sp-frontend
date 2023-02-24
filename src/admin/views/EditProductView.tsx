@@ -1,4 +1,11 @@
-import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+    Box,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
+    Typography,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useProducts } from "../hooks";
 import { useCategories } from "../hooks/useCategories";
@@ -26,27 +33,59 @@ export const EditProductView = () => {
         );
     }
 
-    const productData = productQuery?.data.data;
-    const categories = categoriesQuery.data.data;
+    const productData = productQuery?.data?.data;
+    const categories = categoriesQuery?.data?.data;
+
+    const selectCategory = (categoryId: string) => {};
+    const addCategoriesToProduct = () => {};
+    const deleteCategoriesOfProduct = () => {};
+    const updateProduct = () => {};
     // console.log(categories);
     return (
         <>
             <Grid item xs={12}>
                 <Typography component={"span"} variant="h5">
-                    Nombre:{" "}
+                    Nombre del Producto:{" "}
                 </Typography>
                 <Typography variant="h4" display="inline" fontWeight={"bold"}>
-                    {productData.nombre}
+                    {productData?.nombre}
                 </Typography>
-                <Grid container>
-                    <List>
-                        {productData.temas.map((tema) => (
-                            <ListItem>
-                                <ListItemText>{tema.nombre}</ListItemText>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Grid>
+                <Box
+                    sx={{
+                        my: 2,
+                    }}
+                >
+                    <Grid container>
+                        <Grid item xs={6}>
+                            <List>
+                                <Typography variant="h6">
+                                    Temas que puedes añadir:
+                                </Typography>
+                                {categories?.map((tema) => (
+                                    <ListItem>
+                                        <ListItemText>
+                                            {tema.nombre}
+                                        </ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <List>
+                                <Typography variant="h6">
+                                    Temas añadidos al Producto
+                                </Typography>
+                                {productData?.temas.map((tema) => (
+                                    <ListItem>
+                                        <ListItemText>
+                                            {tema.nombre}
+                                        </ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Grid>
+                    </Grid>
+                </Box>
             </Grid>
         </>
     );

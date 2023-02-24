@@ -4,6 +4,8 @@ const productsApi = axios.create({
     baseURL: "http://localhost:3000/productos",
 });
 
+
+
 export const getProducts = async () => {
     const { data } = await productsApi.get("");
     console.log(data);
