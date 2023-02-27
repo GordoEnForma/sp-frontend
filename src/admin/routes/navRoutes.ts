@@ -26,7 +26,7 @@ export const rutas: Ruta[] = [
         icon: AutoStoriesIcon
     },
     {
-        title: 'Temas',
+        title: 'Categorias',
         ruta: '/admin/temas',
         name: 'temas',
         icon: LocalLibrarySharpIcon

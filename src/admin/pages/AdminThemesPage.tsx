@@ -1,14 +1,35 @@
-import { Typography } from "@mui/material"
-import { AdminLayout } from "../layout/AdminLayout"
+import { Grid, Typography } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { AdminLayout } from "../layout/AdminLayout";
 
 export const AdminThemesPage = () => {
     return (
         <>
             <AdminLayout>
-                {
-                    <Typography>Admin Main Page</Typography>
-                }
+                <Grid
+                    container
+                    sx={{
+                        px: 5,
+                    }}
+                    gap={2}
+                >
+                    {/* PageTitle */}
+                    <Grid
+                        item
+                        xs={12}
+                        sx={{
+                            // bgcolor: 'secondary.main',
+                            my: 2,
+                            // pl: 3
+                        }}
+                    >
+                        <Typography fontSize={28}>Categorias</Typography>
+                    </Grid>
+
+                    {/* TextContainerWithButton */}
+                    <Outlet />
+                </Grid>
             </AdminLayout>
         </>
-    )
-}
+    );
+};

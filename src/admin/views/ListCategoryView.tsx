@@ -1,16 +1,16 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { ResourcesList } from "../components";
-import { useProducts } from "../hooks";
+import { useCategories } from "../hooks";
 
-export const ListProductView = () => {
-    const { productsQuery } = useProducts();
+export const ListCategoryView = () => {
+    const { categoriesQuery } = useCategories();
 
     return (
         <Grid item xs={12}>
-            {productsQuery.isLoading ? (
+            {categoriesQuery.isLoading ? (
                 <Grid item key={"product-loading-"} xs={12}>
                     <Typography fontSize={30}>
-                        Cargando Productos...
+                        Cargando categorias...
                     </Typography>
                 </Grid>
             ) : (
@@ -23,12 +23,10 @@ export const ListProductView = () => {
                             mb: 3,
                         }}
                     >
-                        Agregar un Producto
+                        Agregar una Categoria
                     </Button>
                     <Grid container id="products-container" spacing={3}>
-                        <>
-                            <ResourcesList items={productsQuery.data!.data} />
-                        </>
+                        <ResourcesList items={categoriesQuery.data!.data} />
                     </Grid>
                 </>
             )}

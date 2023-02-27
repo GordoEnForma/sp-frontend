@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Card,
+    Card as MuiCard,
     CardActionArea,
     CardContent,
     Grid,
@@ -12,15 +12,15 @@ type Props = {
     title: string;
     id: string;
 };
-export const ProductCard: FC<Props> = ({ title, id }) => {
+export const Card: FC<Props> = ({ title, id }) => {
     const navigate = useNavigate();
-    const handleRedirection = (productId: string) => {
-        navigate(`${productId}`);
+    const handleRedirection = (cardId: string) => {
+        navigate(`${cardId}`);
     };
 
     return (
         <Grid item xs={12} sm={4} md={4} lg={3} textAlign="center">
-            <Card
+            <MuiCard
                 id={`product-card-${id}`}
                 onClick={() => handleRedirection(id)}
             >
@@ -38,7 +38,7 @@ export const ProductCard: FC<Props> = ({ title, id }) => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-            </Card>
+            </MuiCard>
         </Grid>
     );
 };

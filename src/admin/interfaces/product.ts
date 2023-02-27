@@ -7,7 +7,7 @@ export interface SpecificProduct {
     data: Producto;
 }
 
-interface Producto {
+export interface Producto {
     _id: string;
     nombre: string;
     temas: Tema[];

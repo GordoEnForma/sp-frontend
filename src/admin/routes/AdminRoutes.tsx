@@ -9,7 +9,9 @@ import {
 } from "../pages";
 import {
     CreateProductView,
+    EditCategoryView,
     EditProductView,
+    ListCategoryView,
     ListProductView,
     UserView,
 } from "../views";
@@ -28,7 +30,12 @@ export const AdminRoutes = () => {
             <Route path="/usuarios" element={<AdminUsersPage />}>
                 <Route path="" element={<UserView />} />
             </Route>
-            <Route path="/temas" element={<AdminThemesPage />} />
+            <Route path="/temas" element={<AdminThemesPage />}>
+                <Route path="" element={<ListCategoryView />} />
+                <Route path="crear" element={<CreateProductView />} />
+                <Route path=":temaId" element={<EditCategoryView />} />
+            </Route>
+
             <Route path="/productos" element={<AdminProductsPage />}>
                 <Route path="" element={<ListProductView />} />
                 <Route path="crear" element={<CreateProductView />} />
