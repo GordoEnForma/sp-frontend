@@ -21,7 +21,7 @@ export const AdminSideBar = () => {
                 // mt: '2.5rem',
                 backgroundColor: grey[300],
                 minWidth: "13rem",
-                minHeight: "100vh",
+                minHeight: "100%",
                 position: "sticky",
                 top: 0,
             }}

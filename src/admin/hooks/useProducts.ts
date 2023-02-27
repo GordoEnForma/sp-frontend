@@ -3,11 +3,10 @@ import { getProductById, getProducts } from "../api/productsApi";
 import { Productos, Producto } from "../interfaces/product";
 
 export const useProducts = (productId?: string) => {
-    const productsQuery = useQuery<Productos>(["products"], getProducts, {
-        staleTime: 100 * 60 * 60,
-    });
-
     if (!productId) {
+        const productsQuery = useQuery<Productos>(["products"], getProducts, {
+            staleTime: 100 * 60 * 60,
+        });
         return {
             productsQuery,
         };
@@ -21,7 +20,7 @@ export const useProducts = (productId?: string) => {
     );
 
     return {
-        productsQuery,
+        // productsQuery,
         productQuery,
     };
 };

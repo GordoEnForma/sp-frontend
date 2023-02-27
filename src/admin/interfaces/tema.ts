@@ -3,7 +3,12 @@ export interface Temas {
 }
 
 export interface Tema {
-    data: Data;
+    _id: string;
+    nombre: string;
+    preguntas: Pregunta[];
+    __v: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 interface Data {
