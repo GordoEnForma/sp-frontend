@@ -13,7 +13,7 @@ export const ProductList = () => {
         );
     }
 
-    const products = productsQuery.data?.data || [];
+    const products = productsQuery.data!.data || [];
     // console.log(products);
 
     return products.map(({ nombre, _id }) => (

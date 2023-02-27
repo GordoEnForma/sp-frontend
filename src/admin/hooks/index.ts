@@ -1,3 +1,5 @@
 export * from './useMutateUsers'
 export * from './useProducts'
+export * from './useProduct'
+export * from './useCategories'
 export * from './useUsers'

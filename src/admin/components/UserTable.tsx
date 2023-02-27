@@ -22,9 +22,9 @@ import {
     KeyboardArrowLeft,
     KeyboardArrowRight,
 } from "@mui/icons-material";
-import { useQueryClient } from "@tanstack/react-query";
 import { UserViewContext } from "../context/UserViewContext";
 import { FormDataSchema } from "../types/user.types";
+import { Productos } from "../interfaces/product";
 
 interface TablePaginationActionsProps {
     count: number;
@@ -124,16 +124,13 @@ type DataSchema = {
     updatedAt: string;
 };
 
-type Products = {
-    data: ProductSchema[];
-};
 type Users = {
     data: DataSchema[];
 };
 
 type Props = {
     users: Users;
-    products: Products;
+    products: Productos;
     // setInitialValues: (value: {}) => void;
 };
 
@@ -282,6 +279,7 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                 (
                                     {
                                         nombre,
+                                        apellido,
                                         estado,
                                         producto,
                                         createdAt,
@@ -300,7 +298,7 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                             scope="row"
                                             align="center"
                                         >
-                                            {nombre}
+                                            {nombre + " " + apellido}
                                         </TableCell>
                                         <TableCell
                                             style={{ width: 160 }}
@@ -333,7 +331,7 @@ export const UserTable: FC<Props> = ({ users, products }) => {
                                                 : (() => {
                                                       console.log(producto);
                                                       const newValue =
-                                                          products.data?.find(
+                                                          products.data.find(
                                                               ({ _id }) => {
                                                                   if (
                                                                       (producto as unknown) ===

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     Card,
     CardActionArea,
@@ -15,7 +15,6 @@ type Props = {
 export const ProductCard: FC<Props> = ({ title, id }) => {
     const navigate = useNavigate();
     const handleRedirection = (productId: string) => {
-        // console.log(productId);
         navigate(`${productId}`);
     };
 

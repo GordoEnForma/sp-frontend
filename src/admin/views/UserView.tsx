@@ -3,30 +3,23 @@ import { UserForm, UserTable } from "../components";
 import { useProducts, useUsers } from "../hooks";
 
 export const UserView = () => {
-
     const { usersQuery } = useUsers();
     const { productsQuery } = useProducts();
-    if (usersQuery.isLoading) {
-        return <h1>Cargando usuarios...</h1>;
-    }
-    if (productsQuery.isLoading) {
-        return <h1>Cargando productos... </h1>;
-    }
 
     return (
         <UserViewProvider>
-            {/*  UserForm -> Add Users */}
-            <UserForm />
-
-            {/* UserTable -> Check users and open UserDetailsModal */}
-            <UserTable
-                users={usersQuery.data}
-                products={productsQuery.data}
-                // setInitialValues={setInitialValues}
-                // isUpdating={isUpdating}
-            />
-
-            {/* <UserFormModal  /> */}
+            {usersQuery.isLoading || productsQuery.isLoading ? (
+                <h1>Cargando información...</h1>
+            ) : (
+                <>
+                    <UserForm />
+                    {/* UserTable -> Check users and open UserDetailsModal */}
+                    <UserTable
+                        users={usersQuery.data}
+                        products={productsQuery.data || { data: [] }}
+                    />
+                </>
+            )}
         </UserViewProvider>
     );
 };

@@ -1,17 +1,20 @@
+
 export interface Productos {
-    data: Datum[];
+    data: Producto[];
 }
 
-export interface Producto {
-    data: Datum;
+export interface SpecificProduct {
+    data: Producto;
 }
 
-interface Datum {
+interface Producto {
     _id: string;
     nombre: string;
     temas: Tema[];
     updatedAt?: string;
 }
+
+
 
 interface Tema {
     _id: string;

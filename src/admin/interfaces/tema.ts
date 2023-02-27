@@ -1,5 +1,5 @@
 export interface Temas {
-    data: Data[];
+    data: Tema[];
 }
 
 export interface Tema {
@@ -11,15 +11,7 @@ export interface Tema {
     updatedAt?: string;
 }
 
-interface Data {
-    _id: string;
-    nombre: string;
-    preguntas: Pregunta[];
-    __v: number;
-    createdAt?: string;
-    updatedAt?: string;
 
-}
 interface Pregunta {
     _id: string;
     orden: number;
