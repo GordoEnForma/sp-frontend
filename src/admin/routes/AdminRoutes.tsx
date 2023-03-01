@@ -8,7 +8,6 @@ import {
     AdminUsersPage,
 } from "../pages";
 import {
-    CreateProductView,
     EditCategoryView,
     EditProductView,
     ListCategoryView,
@@ -32,13 +31,11 @@ export const AdminRoutes = () => {
             </Route>
             <Route path="/temas" element={<AdminThemesPage />}>
                 <Route path="" element={<ListCategoryView />} />
-                <Route path="crear" element={<CreateProductView />} />
                 <Route path=":temaId" element={<EditCategoryView />} />
             </Route>
 
             <Route path="/productos" element={<AdminProductsPage />}>
                 <Route path="" element={<ListProductView />} />
-                <Route path="crear" element={<CreateProductView />} />
                 <Route path=":productId" element={<EditProductView />} />
             </Route>
             <Route path="/recursos" element={<AdminResourcesPage />} />
