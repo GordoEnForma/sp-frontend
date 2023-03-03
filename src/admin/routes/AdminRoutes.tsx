@@ -14,6 +14,7 @@ import {
     ListProductView,
     UserView,
 } from "../views";
+import { AddQuestionView } from "../views/AddQuestionView";
 
 export const AdminRoutes = () => {
     // const user = userStore((state) => state.user);
@@ -31,7 +32,8 @@ export const AdminRoutes = () => {
             </Route>
             <Route path="/temas" element={<AdminThemesPage />}>
                 <Route path="" element={<ListCategoryView />} />
-                <Route path=":temaId" element={<EditCategoryView />} />
+                {/* <Route path=":temaId" element={<EditCategoryView />} /> */}
+                <Route path=":temaId" element={<AddQuestionView />} />
             </Route>
 
             <Route path="/productos" element={<AdminProductsPage />}>

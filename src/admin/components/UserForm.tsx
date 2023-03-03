@@ -134,37 +134,16 @@ export const UserForm = () => {
         useFormAction({ type: "resetData" });
     };
 
-    const onSubmit: SubmitHandler<DataSchema> = async ({
-        _id,
-        nombre,
-        apellido,
-        email,
-        contrasena,
-        telefono,
-        productId,
-        estado,
-    }) => {
+    const onSubmit: SubmitHandler<DataSchema> = async ({ _id, ...body }) => {
         if (!isUpdating) {
             await submitNewUser({
-                nombre,
-                apellido,
-                email,
-                contrasena,
-                telefono,
-                productId,
-                estado,
+                ...body,
             });
             await sleep(1.5);
             useFormAction({ type: "resetData" });
         } else {
             await updateUser(_id!, {
-                nombre,
-                apellido,
-                email,
-                contrasena,
-                telefono,
-                productId,
-                estado,
+                ...body,
             });
             await sleep(1.5);
             useFormAction({ type: "resetData" });
