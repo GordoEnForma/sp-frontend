@@ -1,25 +1,18 @@
-import { Box } from "@mui/material"
-import { grey } from "@mui/material/colors"
-import { StudentSideBar } from "../components/StudentSideBar"
-
+import { Box, Grid } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { StudentSideBar } from "../components/StudentSideBar";
 
 type Props = {
-    children: JSX.Element | JSX.Element[]
-}
-
+    children: JSX.Element | JSX.Element[];
+};
 
 export const StudentLayout = ({ children }: Props) => {
-
     return (
-        <Box
-            sx={{ display: 'flex' }}
-
-        >
-
+        <Box sx={{ display: "flex" }}>
             <StudentSideBar />
 
             <Box
-                component={'main'}
+                component={"main"}
                 sx={{
                     backgroundColor: grey[200],
                     flexGrow: 1,
@@ -27,8 +20,15 @@ export const StudentLayout = ({ children }: Props) => {
                     // mr: 5,
                 }}
             >
-                {children}
+                <Grid
+                    container
+                    sx={{
+                        px: 5,
+                    }}
+                >
+                    {children}
+                </Grid>
             </Box>
         </Box>
-    )
-}
+    );
+};

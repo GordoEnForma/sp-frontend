@@ -1,32 +1,26 @@
-import { Outlet } from "react-router-dom"
-import { Grid, Typography } from "@mui/material"
+import { Outlet } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
 
-import { StudentLayout } from "../layout/StudentLayout"
+import { StudentLayout } from "../layout/StudentLayout";
 
 export const StudentExamPage = () => {
     return (
         <StudentLayout>
-            <Grid container
+            {/* PageTitle */}
+            <Grid
+                item
+                xs={12}
                 sx={{
-                    px: 5
-                }}>
-
-                {/* PageTitle */}
-                <Grid item xs={12} sx={{
                     // bgcolor: 'secondary.main',
                     my: 2.5,
                     // pl: 3
-                }}>
-                    <Typography fontSize={28}>
-                        Examen
-                    </Typography>
-
-                </Grid>
-
-                {/* TextContainerWithButton */}
-                <Outlet />
-
+                }}
+            >
+                <Typography fontSize={28}>Examen</Typography>
             </Grid>
+
+            {/* TextContainerWithButton */}
+            <Outlet />
         </StudentLayout>
-    )
-}
+    );
+};

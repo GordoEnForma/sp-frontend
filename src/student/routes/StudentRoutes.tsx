@@ -1,23 +1,28 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { userStore } from "../../store/userStore";
+// import { userStore } from "../../store/userStore";
 import {
     StudentExamPage,
     StudentHomePage,
     StudentReviewPage,
     StudentResourcesPage,
+    RepasoPage,
     // StudentExamplePage
 } from "../pages";
 
-import { StudentExamDetailsView, StudentExamMainView } from "../views";
+import {
+    StudentExamDetailsView,
+    StudentExamMainView,
+    StudentReviewView,
+} from "../views";
 
 export const StudentRoutes = () => {
-    const user = userStore((state) => state.user);
-    if (!user) {
-        return <Navigate to={"/auth/login"} />;
-    }
-    if (user.data.role !== "student") {
-        return <Navigate to={"/auth/login"} />;
-    }
+    // const user = userStore((state) => state.user);
+    // if (!user) {
+    //     return <Navigate to={"/auth/login"} />;
+    // }
+    // if (user.data.role !== "student") {
+    //     return <Navigate to={"/auth/login"} />;
+    // }
 
     return (
         <Routes>
@@ -28,7 +33,10 @@ export const StudentRoutes = () => {
                 <Route path=":id" element={<StudentExamDetailsView />} />
             </Route>
 
-            <Route path="/repaso" element={<StudentReviewPage />} />
+            <Route path="/repaso" element={<StudentReviewPage />}>
+                <Route path="" element={<StudentReviewView />} />
+                <Route path=":temaId" element={<RepasoPage />} />
+            </Route>
 
             <Route path="/recursos" element={<StudentResourcesPage />} />
             {/* Estudiante */}
