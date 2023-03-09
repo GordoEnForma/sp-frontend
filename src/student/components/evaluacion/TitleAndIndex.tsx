@@ -2,14 +2,11 @@ import { FC } from "react";
 import { Grid, Typography } from "@mui/material";
 
 type Props = {
-    index?: number;
-    title?: string;
+    index: number;
+    title: string;
 };
 
-export const TitleAndIndex: FC<Props> = ({
-    index = 1,
-    title = "Constitución 2022",
-}) => {
+export const TitleAndIndex: FC<Props> = ({ index, title }) => {
     return (
         <Grid
             item
@@ -18,7 +15,7 @@ export const TitleAndIndex: FC<Props> = ({
             xs={2}
             minHeight={70}
             sx={{
-                background: "red",
+                // background: "red",
                 alignItems: "flex-start",
                 justifyContent: "space-evenly",
             }}
