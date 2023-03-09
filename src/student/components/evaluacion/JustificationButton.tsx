@@ -7,16 +7,26 @@ export const JustificationButton = () => {
             display={"flex"}
             flexDirection={"column"}
             xs={2}
-            height={40}
+            height={70}
             sx={{
+                position: "relative",
                 // background: "purple",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "center",
             }}
         >
-            <Button variant="contained" sx={{
-                height:'100%',
-            }}> Justificación</Button>
+            <Button
+                variant="contained"
+                sx={{
+                    height: 40,
+                    position: "absolute",
+                    // left: 50,
+                    top: 20,
+                }}
+            >
+                {" "}
+                Justificación
+            </Button>
         </Grid>
     );
 };

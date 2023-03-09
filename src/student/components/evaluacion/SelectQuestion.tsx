@@ -22,9 +22,11 @@ export const SelectQuestion = () => {
             item
             xs={2}
             minHeight={70}
-            sx={{
-                // background: "snow",
-            }}
+            sx={
+                {
+                    // background: "snow",
+                }
+            }
         >
             <Box
                 component={"form"}
@@ -32,15 +34,19 @@ export const SelectQuestion = () => {
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
-                    height:'100%',
-                    width: "100%",
+                    height: "100%",
+                    width: "90%",
                     div: {
-                        width: 80,
+                        width: 75,
+                        height: 30,
                         textAlign: "center",
+                        fontWeight: "bold",
                     },
                 }}
             >
-                <Typography>Navegar: </Typography>
+                <Typography fontSize={18} fontWeight="bold">
+                    Navegar:{" "}
+                </Typography>
                 <Select
                     id="id-select-question"
                     value={selectedQuestion}

@@ -24,12 +24,16 @@ export const RepasoPage = () => {
                 },
             }}
             justifyContent="space-between"
+            // alignItems={'center'}
         >
             <Grid
                 item
                 xs={12}
                 sx={{
                     // background: "pink",
+                    textAlign: "center",
+                    fontSize: 24,
+                    mb: 2,
                 }}
             >
                 Repaso
