@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const questions = Array.from({ length: 400 }, (_, index) => index + 1);
 
-console.log(questions);
+// console.log(questions);
 export const SelectQuestion = () => {
     const [selectedQuestion, setSelectedQuestion] = useState<string>("1");
 

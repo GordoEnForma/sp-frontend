@@ -1,4 +1,5 @@
 import {
+    Button,
     FormControl,
     Grid,
     InputLabel,
@@ -8,23 +9,27 @@ import {
     Typography,
 } from "@mui/material";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 type Alternativa = {
-    opcion: "A" | "B" | "C" | "D" | "E";
     descripcion: string;
+    isAnswer?: boolean;
 };
 type QuestionSchema = {
     orden: number;
     descripcion: string;
     alternativas: Alternativa[];
-    opcionCorrecta: "A" | "B" | "C" | "D" | "E";
+    opcionCorrecta: string;
     justificacion: string;
 };
+
 const opciones = ["A", "B", "C", "D", "E"];
 
 export const AddQuestionView = () => {
     const {
         control,
+        setValue,
         register,
         handleSubmit,
         watch,
@@ -35,37 +40,43 @@ export const AddQuestionView = () => {
             descripcion: "",
             alternativas: [
                 {
-                    opcion: "A",
                     descripcion: "",
+                    isAnswer: true,
                 },
                 {
-                    opcion: "B",
                     descripcion: "",
+                    isAnswer: false,
                 },
                 {
-                    opcion: "C",
                     descripcion: "",
+                    isAnswer: false,
                 },
                 {
-                    opcion: "D",
                     descripcion: "",
+                    isAnswer: false,
                 },
                 {
-                    opcion: "E",
                     descripcion: "",
+                    isAnswer: false,
                 },
             ],
-            justificacion: "",
             opcionCorrecta: "A",
+            justificacion: "",
         },
     });
 
+    const handleSelect = async (index: number) => {
+        defaultValues?.alternativas?.forEach((_, index) => {
+            setValue(`alternativas.${index + 1}.isAnswer`, false);
+        });
+        setValue(`alternativas.${index}.isAnswer`, true);
+    };
     return (
         <>
             <Typography variant="h5" fontWeight={"bold"}>
                 Añada una pregunta para este tema
             </Typography>
-            <pre>{JSON.stringify(watch(), null, 2)}</pre>
+            {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
             <Grid
                 container
                 component={"form"}
@@ -88,12 +99,12 @@ export const AddQuestionView = () => {
                 </Grid>
                 <Grid item xs={5} sm={5} md={2.3} lg={2.05}>
                     <InputLabel>N° de orden:</InputLabel>
-                    <TextField fullWidth />
+                    <TextField {...register("orden")} type="number" />
                 </Grid>
-                {defaultValues?.alternativas?.map((title, index) => (
-                    <Grid key={title?.opcion} item xs={10}>
-                        <InputLabel id={title?.opcion}>
-                            Alternativa {index + 1}
+                {defaultValues?.alternativas?.map((alternativa, index) => (
+                    <Grid key={index} item xs={10}>
+                        <InputLabel id={alternativa?.descripcion}>
+                            Alternativa {opciones[index]}
                         </InputLabel>
                         <TextField
                             multiline
@@ -114,15 +125,66 @@ export const AddQuestionView = () => {
                                     displayEmpty
                                     value={watch("opcionCorrecta")}
                                 >
-                                    {opciones.map((value) => (
-                                        <MenuItem key={value} value={value}>
+                                    {opciones.map((value, index) => (
+                                        <MenuItem
+                                            key={value}
+                                            value={value}
+                                            onClick={() => handleSelect(index)}
+                                        >
                                             {value}
                                         </MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
                         )}
-                    ></Controller>
+                    />
+                </Grid>
+
+                <Grid
+                    item
+                    xs={10}
+                    sx={{
+                        height: 450,
+                        ".quill": {
+                            height: "",
+                        },
+                        ".ql-toolbar": {
+                            background: "#F2F0EB",
+                        },
+                        ".ql-container": {
+                            minHeight: 350,
+                            maxHeight: 400,
+                            background: "#FFFAFA",
+
+                            // height: 100
+                        },
+                    }}
+                >
+                    <InputLabel>Justificación</InputLabel>
+                    <Controller
+                        control={control}
+                        name="justificacion"
+                        render={({ field }) => (
+                            <ReactQuill theme="snow" {...field} />
+                        )}
+                    />
+                </Grid>
+
+                <Grid
+                    item
+                    xs={12}
+                    display="flex"
+                    justifyContent={"center"}
+                    sx={{
+                        button: {
+                            mx: 2,
+                        },
+                    }}
+                >
+                    <Button variant="contained">Registrar Pregunta</Button>
+                    <Button variant="contained" color="error">
+                        Cancelar
+                    </Button>
                 </Grid>
             </Grid>
         </>
